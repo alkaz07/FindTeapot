@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,6 +6,24 @@ public class Main {
         exampleArrayRectangles1();
         exampleArrayTeapots2();
 
+        exampleDistinctTeapots3();
+    }
+
+    private static void exampleDistinctTeapots3() {
+        Teapot[] array = new Teapot[]{  new Teapot(1, "blue"),
+                new Teapot(1.1, "white"),
+                new Teapot(2.5, "white"),
+                new Teapot(3, "green")
+        };
+        int kolvo1 = countDistinctTeapots(array);
+        System.out.println("kolvo1 = " + kolvo1);
+
+        int kolvo2 = countDistinctTeapotsWithSet(array);
+        System.out.println("kolvo2 = " + kolvo2);
+        
+        int kolvoColors = countDistinctColorsOfTeapots(array);
+        System.out.println("kolvoColors = " + kolvoColors);
+        
     }
 
     private static void exampleArrayTeapots2() {
@@ -94,5 +111,17 @@ public class Main {
                 result++;
         }
         return result;
+    }
+
+    public static int countDistinctTeapotsWithSet(Teapot[] array){
+        Set<Teapot> set = new HashSet<>(Arrays.asList(array));        
+        return set.size();
+    }
+    
+    public static int countDistinctColorsOfTeapots(Teapot[] array){
+        Set<String> set = new HashSet<>();
+        for (Teapot tp: array)
+            set.add(tp.color);
+        return set.size();
     }
 }
