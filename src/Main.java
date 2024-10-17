@@ -2,11 +2,38 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        exampleArrayTeapots1();
-        exampleArrayRectangles1();
-        exampleArrayTeapots2();
+        //exampleArrayTeapots1();
+        //exampleArrayRectangles1();
+        //exampleArrayTeapots2();
 
-        exampleDistinctTeapots3();
+       // exampleDistinctTeapots3();
+        exampleSortTeapots();
+    }
+
+    private static void exampleSortTeapots() {
+        Teapot[] array = new Teapot[]{  new Teapot(1, "blue"),
+                new Teapot(1.1, "white"),
+                new Teapot(2.5, "white"),
+                new Teapot(3, "green")
+        };
+        List<Teapot> teapots = new LinkedList<>(List.of(array));
+        //сортировать чайники по цвету
+        teapots.sort(Comparator.comparing(a -> a.color));
+        System.out.println("teapots sorted by color = " + teapots);
+        //сортировать от большего объема к меньшему
+     //   teapots.sort(Comparator.comparing(a->a.volume));
+     //   System.out.println("teapots sorted by volume descendend = " + teapots.reversed());
+        teapots.sort(Comparator.comparing(a-> -a.volume));  //военная хитрость!
+        System.out.println("teapots sorted by volume descendend = " + teapots);
+
+        //сортировать по цвету, а если цвет одинаковый, то по объему от большего к меньшему
+        teapots.sort((a, b) -> {
+            if(a.color.equals(b.color))
+                return Double.compare(b.volume, a.volume);
+            return a.color.compareTo(b.color);
+        });
+
+        System.out.println("teapots sorted by color and volume desc = " + teapots);
     }
 
     private static void exampleDistinctTeapots3() {
